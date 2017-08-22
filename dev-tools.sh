@@ -25,6 +25,7 @@ menu() {
     --title 'DEV Tools' \
     --ok-button 'Install' \
     --checklist '' "$lines" "$cols" "$((lines - 6))" \
+      commit-rules "$(title commit-rules 'Commit Rules')" off \
     3>&1 1>&2 2>&3
 }
 
@@ -40,6 +41,28 @@ main() {
     echo "---> Instaling $tool"
     eval "install_$tool" |& sed -r 's/^/  /'
   done
+}
+
+
+# Tool - Commit Rules
+
+get_commit-rules_local_version() {
+  if type commit-rules &> /dev/null; then
+    echo 'Installed'
+  else
+    echo '-'
+  fi
+}
+
+
+get_commit-rules_latest_version() {
+  echo 'git'
+}
+
+
+install_commit-rules() {
+  wget -O /usr/local/bin/commit-rules 'https://gitlab.com/eduardoklosowski/commit-rules/raw/master/commit-rules'
+  chmod +x /usr/local/bin/commit-rules
 }
 
 
