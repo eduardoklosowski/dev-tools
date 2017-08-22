@@ -16,3 +16,6 @@ Docker Compose
 
 Docker Machine
   https://docs.docker.com/machine/
+
+Docker Machine KVM Driver
+  https://github.com/dhiltgen/docker-machine-kvm

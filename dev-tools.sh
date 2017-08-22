@@ -28,6 +28,7 @@ menu() {
       commit-rules "$(title commit-rules 'Commit Rules')" off \
       docker-compose "$(title docker-compose 'Docker Compose')" off \
       docker-machine "$(title docker-machine 'Docker Machine')" off \
+      docker-machine-driver-kvm "$(title docker-machine-driver-kvm 'Docker Machine KVM Driver')" off \
     3>&1 1>&2 2>&3
 }
 
@@ -113,6 +114,28 @@ install_docker-machine() {
   wget -O /usr/local/bin/docker-machine "https://github.com/docker/machine/releases/download/$version/docker-machine-$(uname -s)-$(uname -m)"
   chmod +x /usr/local/bin/docker-machine
   wget -O /etc/bash_completion.d/docker-machine "https://github.com/docker/machine/raw/$version/contrib/completion/bash/docker-machine.bash"
+}
+
+
+# Tool - Docker Machine KVM Driver
+
+get_docker-machine-driver-kvm_local_version() {
+  if type docker-machine-driver-kvm &> /dev/null; then
+    echo 'Installed'
+  else
+    echo '-'
+  fi
+}
+
+
+get_docker-machine-driver-kvm_latest_version() {
+  get_github_version 'dhiltgen/docker-machine-kvm'
+}
+
+
+install_docker-machine-driver-kvm() {
+  version="$(get_docker-machine-driver-kvm_latest_version)"
+  wget -O /usr/local/bin/docker-machine-driver-kvm "https://github.com/dhiltgen/docker-machine-kvm/releases/download/$version/docker-machine-driver-kvm-ubuntu16.04"
 }
 
 
