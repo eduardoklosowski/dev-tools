@@ -27,6 +27,7 @@ menu() {
     --checklist '' "$lines" "$cols" "$((lines - 6))" \
       commit-rules "$(title commit-rules 'Commit Rules')" off \
       docker-compose "$(title docker-compose 'Docker Compose')" off \
+      docker-machine "$(title docker-machine 'Docker Machine')" off \
     3>&1 1>&2 2>&3
 }
 
@@ -88,6 +89,30 @@ install_docker-compose() {
   wget -O /usr/local/bin/docker-compose "https://github.com/docker/compose/releases/download/$version/docker-compose-$(uname -s)-$(uname -m)"
   chmod +x /usr/local/bin/docker-compose
   wget -O /etc/bash_completion.d/docker-compose "https://github.com/docker/compose/raw/$version/contrib/completion/bash/docker-compose"
+}
+
+
+# Tool - Docker Machine
+
+get_docker-machine_local_version() {
+  if type docker-machine &> /dev/null; then
+    docker-machine --version | sed -rn 's/^docker-machine version (.+), build .+$/\1/p'
+  else
+    echo '-'
+  fi
+}
+
+
+get_docker-machine_latest_version() {
+  get_github_version 'docker/machine'
+}
+
+
+install_docker-machine() {
+  version="$(get_docker-machine_latest_version)"
+  wget -O /usr/local/bin/docker-machine "https://github.com/docker/machine/releases/download/$version/docker-machine-$(uname -s)-$(uname -m)"
+  chmod +x /usr/local/bin/docker-machine
+  wget -O /etc/bash_completion.d/docker-machine "https://github.com/docker/machine/raw/$version/contrib/completion/bash/docker-machine.bash"
 }
 
 

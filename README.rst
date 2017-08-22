@@ -13,3 +13,6 @@ Commit Rules
 
 Docker Compose
   https://docs.docker.com/compose/
+
+Docker Machine
+  https://docs.docker.com/machine/
