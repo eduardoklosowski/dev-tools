@@ -10,3 +10,6 @@ Ferramentas
 
 Commit Rules
   https://github.com/eduardoklosowski/commit-rules
+
+Docker Compose
+  https://docs.docker.com/compose/

@@ -26,6 +26,7 @@ menu() {
     --ok-button 'Install' \
     --checklist '' "$lines" "$cols" "$((lines - 6))" \
       commit-rules "$(title commit-rules 'Commit Rules')" off \
+      docker-compose "$(title docker-compose 'Docker Compose')" off \
     3>&1 1>&2 2>&3
 }
 
@@ -63,6 +64,30 @@ get_commit-rules_latest_version() {
 install_commit-rules() {
   wget -O /usr/local/bin/commit-rules 'https://gitlab.com/eduardoklosowski/commit-rules/raw/master/commit-rules'
   chmod +x /usr/local/bin/commit-rules
+}
+
+
+# Tool - Docker Compose
+
+get_docker-compose_local_version() {
+  if type docker-compose &> /dev/null; then
+    docker-compose --version | sed -rn 's/^docker-compose version (.+), build .+$/\1/p'
+  else
+    echo '-'
+  fi
+}
+
+
+get_docker-compose_latest_version() {
+  get_github_version 'docker/compose'
+}
+
+
+install_docker-compose() {
+  version="$(get_docker-compose_latest_version)"
+  wget -O /usr/local/bin/docker-compose "https://github.com/docker/compose/releases/download/$version/docker-compose-$(uname -s)-$(uname -m)"
+  chmod +x /usr/local/bin/docker-compose
+  wget -O /etc/bash_completion.d/docker-compose "https://github.com/docker/compose/raw/$version/contrib/completion/bash/docker-compose"
 }
 
 
