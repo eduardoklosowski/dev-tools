@@ -29,6 +29,7 @@ menu() {
       docker-compose "$(title docker-compose 'Docker Compose')" off \
       docker-machine "$(title docker-machine 'Docker Machine')" off \
       docker-machine-driver-kvm "$(title docker-machine-driver-kvm 'Docker Machine KVM Driver')" off \
+      kubectl "$(title kubectl 'kubectl')" off \
     3>&1 1>&2 2>&3
 }
 
@@ -136,6 +137,30 @@ get_docker-machine-driver-kvm_latest_version() {
 install_docker-machine-driver-kvm() {
   version="$(get_docker-machine-driver-kvm_latest_version)"
   wget -O /usr/local/bin/docker-machine-driver-kvm "https://github.com/dhiltgen/docker-machine-kvm/releases/download/$version/docker-machine-driver-kvm-ubuntu16.04"
+}
+
+
+# Tool - kubectl
+
+get_kubectl_local_version() {
+  if type kubectl &> /dev/null; then
+    kubectl version 2> /dev/null | sed -rn 's/.* GitVersion:"(v[^"]+)".*/\1/p'
+  else
+    echo '-'
+  fi
+}
+
+
+get_kubectl_latest_version() {
+  wget -O - https://storage.googleapis.com/kubernetes-release/release/stable.txt
+}
+
+
+install_kubectl() {
+  version="$(get_kubectl_latest_version)"
+  wget -O /usr/local/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/$version/bin/linux/amd64/kubectl"
+  chmod +x /usr/local/bin/kubectl
+  kubectl completion bash > /etc/bash_completion.d/kubectl
 }
 
 

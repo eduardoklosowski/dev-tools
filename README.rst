@@ -19,3 +19,6 @@ Docker Machine
 
 Docker Machine KVM Driver
   https://github.com/dhiltgen/docker-machine-kvm
+
+kubectl
+  https://kubernetes.io/docs/user-guide/kubectl/
