@@ -22,3 +22,6 @@ Docker Machine KVM Driver
 
 kubectl
   https://kubernetes.io/docs/user-guide/kubectl/
+
+Minikube
+  https://github.com/kubernetes/minikube

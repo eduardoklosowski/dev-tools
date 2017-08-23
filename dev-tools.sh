@@ -30,6 +30,7 @@ menu() {
       docker-machine "$(title docker-machine 'Docker Machine')" off \
       docker-machine-driver-kvm "$(title docker-machine-driver-kvm 'Docker Machine KVM Driver')" off \
       kubectl "$(title kubectl 'kubectl')" off \
+      minikube "$(title minikube 'Minikube')" off \
     3>&1 1>&2 2>&3
 }
 
@@ -161,6 +162,29 @@ install_kubectl() {
   wget -O /usr/local/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/$version/bin/linux/amd64/kubectl"
   chmod +x /usr/local/bin/kubectl
   kubectl completion bash > /etc/bash_completion.d/kubectl
+}
+
+
+# Tool - Minikube
+
+get_minikube_local_version() {
+  if type minikube &> /dev/null; then
+    minikube version | sed -rn 's/^minikube version: //p'
+  else
+    echo '-'
+  fi
+}
+
+
+get_minikube_latest_version() {
+  get_github_version 'kubernetes/minikube'
+}
+
+
+install_minikube() {
+  wget -O /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+  chmod +x /usr/local/bin/minikube
+  minikube completion bash > /etc/bash_completion.d/minikube
 }
 
 
