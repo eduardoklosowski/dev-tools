@@ -31,6 +31,7 @@ menu() {
       docker-machine-driver-kvm "$(title docker-machine-driver-kvm 'Docker Machine KVM Driver')" off \
       kubectl "$(title kubectl 'kubectl')" off \
       minikube "$(title minikube 'Minikube')" off \
+      minishift "$(title minishift 'Minishift')" off \
     3>&1 1>&2 2>&3
 }
 
@@ -185,6 +186,29 @@ install_minikube() {
   wget -O /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
   chmod +x /usr/local/bin/minikube
   minikube completion bash > /etc/bash_completion.d/minikube
+}
+
+
+# Tool - Minishift
+
+get_minishift_local_version() {
+  if type minishift &> /dev/null; then
+    minishift version | sed -rn 's/^minishift (v[^+]+)\+.*/\1/p'
+  else
+    echo '-'
+  fi
+}
+
+
+get_minishift_latest_version() {
+  get_github_version 'minishift/minishift'
+}
+
+
+install_minishift() {
+  version="$(get_minishift_latest_version)"
+  wget -O - "https://github.com/minishift/minishift/releases/download/$version/minishift-${version/v/}-linux-amd64.tgz" | \
+    tar -xzf - -C /usr/local/bin minishift
 }
 
 

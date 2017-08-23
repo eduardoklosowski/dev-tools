@@ -25,3 +25,6 @@ kubectl
 
 Minikube
   https://github.com/kubernetes/minikube
+
+Minishift
+  https://www.openshift.org/minishift/
