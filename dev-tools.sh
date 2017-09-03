@@ -139,6 +139,7 @@ get_docker-machine-driver-kvm_latest_version() {
 install_docker-machine-driver-kvm() {
   version="$(get_docker-machine-driver-kvm_latest_version)"
   wget -O /usr/local/bin/docker-machine-driver-kvm "https://github.com/dhiltgen/docker-machine-kvm/releases/download/$version/docker-machine-driver-kvm-ubuntu16.04"
+  chmod +x /usr/local/bin/docker-machine-driver-kvm
 }
 
 
