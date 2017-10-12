@@ -209,7 +209,7 @@ get_minishift_latest_version() {
 install_minishift() {
   version="$(get_minishift_latest_version)"
   wget -O - "https://github.com/minishift/minishift/releases/download/$version/minishift-${version/v/}-linux-amd64.tgz" | \
-    tar -xzf - -C /usr/local/bin minishift
+    tar -xzf - -C /usr/local/bin --strip=1 "minishift-${version/v/}-linux-amd64/minishift"
 }
 
 
