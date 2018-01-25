@@ -7,7 +7,7 @@ set -e
 
 get_github_version() {
   wget -O - -q "https://api.github.com/repos/$1/releases/latest" | \
-    python -c "import sys; import json; print(json.load(sys.stdin)['name'])"
+    python -c "import sys; import json; print(json.load(sys.stdin)['tag_name'])"
 }
 
 
@@ -29,6 +29,7 @@ menu() {
       docker-compose "$(title docker-compose 'Docker Compose')" off \
       docker-machine "$(title docker-machine 'Docker Machine')" off \
       docker-machine-driver-kvm "$(title docker-machine-driver-kvm 'Docker Machine KVM Driver')" off \
+      helm "$(title helm 'Helm')" off \
       kubectl "$(title kubectl 'kubectl')" off \
       minikube "$(title minikube 'Minikube')" off \
       minishift "$(title minishift 'Minishift')" off \
@@ -140,6 +141,31 @@ install_docker-machine-driver-kvm() {
   version="$(get_docker-machine-driver-kvm_latest_version)"
   wget -O /usr/local/bin/docker-machine-driver-kvm "https://github.com/dhiltgen/docker-machine-kvm/releases/download/$version/docker-machine-driver-kvm-ubuntu16.04"
   chmod +x /usr/local/bin/docker-machine-driver-kvm
+}
+
+
+# Tool - Helm
+
+get_helm_local_version() {
+  if type helm &> /dev/null; then
+    helm version -c --short | sed -rn 's/^Client: (v[^+]+)\+.*/\1/p'
+  else
+    echo '-'
+  fi
+}
+
+
+get_helm_latest_version() {
+  get_github_version 'kubernetes/helm'
+}
+
+
+install_helm() {
+  version="$(get_helm_latest_version)"
+  wget -O - "https://storage.googleapis.com/kubernetes-helm/helm-$version-linux-amd64.tar.gz" | \
+    tar -xzf - -C /usr/local/bin --strip=1 linux-amd64/helm
+  chmod +x /usr/local/bin/helm
+  helm completion bash > /etc/bash_completion.d/helm
 }
 
 
