@@ -28,7 +28,7 @@ menu() {
       commit-rules "$(title commit-rules 'Commit Rules')" off \
       docker-compose "$(title docker-compose 'Docker Compose')" off \
       docker-machine "$(title docker-machine 'Docker Machine')" off \
-      docker-machine-driver-kvm "$(title docker-machine-driver-kvm 'Docker Machine KVM Driver')" off \
+      docker-machine-driver-kvm2 "$(title docker-machine-driver-kvm2 'Docker Machine KVM 2 Driver')" off \
       helm "$(title helm 'Helm')" off \
       kubectl "$(title kubectl 'kubectl')" off \
       minikube "$(title minikube 'Minikube')" off \
@@ -121,10 +121,10 @@ install_docker-machine() {
 }
 
 
-# Tool - Docker Machine KVM Driver
+# Tool - Docker Machine KVM 2 Driver
 
-get_docker-machine-driver-kvm_local_version() {
-  if type docker-machine-driver-kvm &> /dev/null; then
+get_docker-machine-driver-kvm2_local_version() {
+  if type docker-machine-driver-kvm2 &> /dev/null; then
     echo 'Installed'
   else
     echo '-'
@@ -132,15 +132,15 @@ get_docker-machine-driver-kvm_local_version() {
 }
 
 
-get_docker-machine-driver-kvm_latest_version() {
-  get_github_version 'dhiltgen/docker-machine-kvm'
+get_docker-machine-driver-kvm2_latest_version() {
+  get_github_version 'kubernetes/minikube'
 }
 
 
-install_docker-machine-driver-kvm() {
-  version="$(get_docker-machine-driver-kvm_latest_version)"
-  wget -O /usr/local/bin/docker-machine-driver-kvm "https://github.com/dhiltgen/docker-machine-kvm/releases/download/$version/docker-machine-driver-kvm-ubuntu16.04"
-  chmod +x /usr/local/bin/docker-machine-driver-kvm
+install_docker-machine-driver-kvm2() {
+  version="$(get_docker-machine-driver-kvm2_latest_version)"
+  wget -O /usr/local/bin/docker-machine-driver-kvm2 "https://github.com/kubernetes/minikube/releases/download/$version/docker-machine-driver-kvm2"
+  chmod +x /usr/local/bin/docker-machine-driver-kvm2
 }
 
 
