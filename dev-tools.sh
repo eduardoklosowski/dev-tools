@@ -31,6 +31,8 @@ menu() {
       docker-machine-driver-kvm2 "$(title docker-machine-driver-kvm2 'Docker Machine KVM 2 Driver')" off \
       helm "$(title helm 'Helm')" off \
       kubectl "$(title kubectl 'kubectl')" off \
+      makecbz "$(title makecbz 'make cbz')" off \
+      makeepub "$(title makeepub 'make epub')" off \
       minikube "$(title minikube 'Minikube')" off \
       minishift "$(title minishift 'Minishift')" off \
     3>&1 1>&2 2>&3
@@ -190,6 +192,50 @@ install_kubectl() {
   wget -O /usr/local/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/$version/bin/linux/amd64/kubectl"
   chmod +x /usr/local/bin/kubectl
   kubectl completion bash > /etc/bash_completion.d/kubectl
+}
+
+
+# Tool - make cbz
+
+get_makecbz_local_version() {
+  if type makecbz &> /dev/null; then
+    echo 'Installed'
+  else
+    echo '-'
+  fi
+}
+
+
+get_makecbz_latest_version() {
+  echo 'git'
+}
+
+
+install_makecbz() {
+  wget -O /usr/local/bin/makecbz 'https://github.com/eduardoklosowski/makes/raw/master/makecbz'
+  chmod +x /usr/local/bin/makecbz
+}
+
+
+# Tool - make epub
+
+get_makeepub_local_version() {
+  if type makeepub &> /dev/null; then
+    echo 'Installed'
+  else
+    echo '-'
+  fi
+}
+
+
+get_makeepub_latest_version() {
+  echo 'git'
+}
+
+
+install_makeepub() {
+  wget -O /usr/local/bin/makeepub 'https://github.com/eduardoklosowski/makes/raw/master/makeepub'
+  chmod +x /usr/local/bin/makeepub
 }
 
 
