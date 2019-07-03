@@ -20,8 +20,14 @@ Docker Machine
 Docker Machine KVM Driver
   https://github.com/dhiltgen/docker-machine-kvm
 
+Helm
+  https://helm.sh/
+
 kubectl
   https://kubernetes.io/docs/user-guide/kubectl/
+
+makes
+  https://github.com/eduardoklosowski/makes
 
 Minikube
   https://github.com/kubernetes/minikube
