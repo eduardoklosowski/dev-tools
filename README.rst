@@ -20,6 +20,9 @@ Docker Machine
 Docker Machine KVM Driver
   https://github.com/dhiltgen/docker-machine-kvm
 
+editorconfig-checker
+  https://github.com/editorconfig-checker/editorconfig-checker
+
 Helm
   https://helm.sh/
 

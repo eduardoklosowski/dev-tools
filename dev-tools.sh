@@ -29,6 +29,7 @@ menu() {
       docker-compose "$(title docker-compose 'Docker Compose')" off \
       docker-machine "$(title docker-machine 'Docker Machine')" off \
       docker-machine-driver-kvm2 "$(title docker-machine-driver-kvm2 'Docker Machine KVM 2 Driver')" off \
+      editorconfig-checker "$(title editorconfig-checker 'editorconfig-checker')" off \
       helm "$(title helm 'Helm')" off \
       kubectl "$(title kubectl 'kubectl')" off \
       makecbz "$(title makecbz 'make cbz')" off \
@@ -143,6 +144,31 @@ install_docker-machine-driver-kvm2() {
   version="$(get_docker-machine-driver-kvm2_latest_version)"
   wget -O /usr/local/bin/docker-machine-driver-kvm2 "https://github.com/kubernetes/minikube/releases/download/$version/docker-machine-driver-kvm2"
   chmod +x /usr/local/bin/docker-machine-driver-kvm2
+}
+
+
+# Tool - editorconfig-checker
+
+get_editorconfig-checker_local_version() {
+  if type ec &> /dev/null; then
+    ec --version
+  else
+    echo '-'
+  fi
+}
+
+
+get_editorconfig-checker_latest_version() {
+  get_github_version 'editorconfig-checker/editorconfig-checker'
+}
+
+
+install_editorconfig-checker() {
+  version="$(get_editorconfig-checker_latest_version)"
+  wget -O - "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/$version/ec-linux-amd64.tar.gz" | \
+    tar -xzf - -C /usr/local/bin --strip=1 bin/ec-linux-amd64
+  mv /usr/local/bin/ec-linux-amd64 /usr/local/bin/ec
+  chown root.staff /usr/local/bin/ec
 }
 
 
