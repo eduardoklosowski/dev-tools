@@ -176,7 +176,7 @@ install_editorconfig-checker() {
 
 get_helm_local_version() {
   if type helm &> /dev/null; then
-    helm version -c --short | sed -rn 's/^Client: (v[^+]+)\+.*/\1/p'
+    helm version --short | sed -rn 's/^(v[^+]+)\+.*/\1/p'
   else
     echo '-'
   fi
@@ -190,7 +190,7 @@ get_helm_latest_version() {
 
 install_helm() {
   version="$(get_helm_latest_version)"
-  wget -O - "https://storage.googleapis.com/kubernetes-helm/helm-$version-linux-amd64.tar.gz" | \
+  wget -O - "https://get.helm.sh/helm-$version-linux-amd64.tar.gz" | \
     tar -xzf - -C /usr/local/bin --strip=1 linux-amd64/helm
   chmod +x /usr/local/bin/helm
   helm completion bash > /etc/bash_completion.d/helm
