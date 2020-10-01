@@ -31,6 +31,7 @@ menu() {
       docker-machine-driver-kvm2 "$(title docker-machine-driver-kvm2 'Docker Machine KVM 2 Driver')" off \
       editorconfig-checker "$(title editorconfig-checker 'editorconfig-checker')" off \
       helm "$(title helm 'Helm')" off \
+      kind "$(title kind 'kind')" off \
       kubectl "$(title kubectl 'kubectl')" off \
       makecbz "$(title makecbz 'make cbz')" off \
       makeepub "$(title makeepub 'make epub')" off \
@@ -194,6 +195,30 @@ install_helm() {
     tar -xzf - -C /usr/local/bin --strip=1 linux-amd64/helm
   chmod +x /usr/local/bin/helm
   helm completion bash > /etc/bash_completion.d/helm
+}
+
+
+# Tool - kind
+
+get_kind_local_version() {
+  if type kind &> /dev/null; then
+    kind version | sed -rn 's/^kind (v[^ ]+).*/\1/p'
+  else
+    echo '-'
+  fi
+}
+
+
+get_kind_latest_version() {
+  get_github_version 'kubernetes-sigs/kind'
+}
+
+
+install_kind() {
+  version="$(get_kind_latest_version)"
+  wget -O /usr/local/bin/kind "https://github.com/kubernetes-sigs/kind/releases/download/$version/kind-linux-amd64"
+  chmod +x /usr/local/bin/kind
+  kind completion bash > /etc/bash_completion.d/kind
 }
 
 
